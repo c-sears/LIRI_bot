@@ -6,7 +6,8 @@ import Spotify from 'node-spotify-api'
 import request from 'request'
 import moment from 'moment'
 import { twitter_keys, spotify_keys, omdb_keys } from './keys'
-import { spotQuest, twitQuest } from './questions'
+import { spotQuest, twitQuest, omdbQuest } from './questions'
+import { liri_start } from '../liri'
 
 
 export const runTwitInt = () =>{
@@ -28,6 +29,7 @@ export const runTwitInt = () =>{
                 console.log(`@: ${t}`);
                 console.log('------------------------------');
             }
+            setTimeout(liri_start, 3000)
             
         }
     });
@@ -84,28 +86,31 @@ export const runSpotInt = () =>{
                       console.log(`=======================================`)
                     break
             }
+            setTimeout(liri_start, 3000)
         })
     })
 }
 
 export const runOmdbInt = () =>{
-    inquirer.prompt
-    request(`https://www.omdbapi.com/?apikey=${omdb_keys.key}&s=inception`, (err, data, body) =>{
-        const movie = JSON.parse(body)
-        const imdbID = movie.Search[0].imdbID
-        request(`https://www.omdbapi.com/?apikey=${omdb_keys.key}&i=${imdbID}`, (err, data, body) =>{
-            const { Title, Released, Country, Language, Plot, Actors, imdbRating, Ratings } = JSON.parse(body)
-            console.log(`Title: ${Title}`)
-            console.log(`Released: ${Released}`)
-            console.log(`Country: ${Country}`)
-            console.log(`Language: ${Language}`)
-            console.log(`Plot: ${Plot}`)
-            console.log(`Actors: ${Actors}`)
-            console.log(`imdbRating: ${imdbRating}`)
-            console.log(`Rotten Tomatos: ${Ratings[1].Value}`)
-              
-
-            // console.log(Title);
+    inquirer.prompt(omdbQuest).then( ({search_for}) =>{
+        request(`https://www.omdbapi.com/?apikey=${omdb_keys.key}&s=${search_for}`, (err, data, body) =>{
+            const movie = JSON.parse(body)
+            const imdbID = movie.Search[0].imdbID
+            request(`https://www.omdbapi.com/?apikey=${omdb_keys.key}&i=${imdbID}`, (err, data, body) =>{
+                const { Title, Released, Country, Language, Plot, Actors, imdbRating, Ratings } = JSON.parse(body)
+                console.log(`Here's what I found`)
+                console.log(`========================`)
+                console.log(`Title: ${Title}`)
+                console.log(`Released: ${Released}`)
+                console.log(`Country: ${Country}`)
+                console.log(`Language: ${Language}`)
+                console.log(`Plot: ${Plot}`)
+                console.log(`Actors: ${Actors}`)
+                console.log(`imdbRating: ${imdbRating}`)
+                console.log(`Rotten Tomatos: ${Ratings[1].Value}`)
+                console.log(`========================`)
+                setTimeout(liri_start, 3000)
+            })
         })
     })
 }

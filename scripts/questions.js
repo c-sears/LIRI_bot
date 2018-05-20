@@ -45,3 +45,10 @@ export const spotQuest = [
     }
 ]
 
+export const omdbQuest = [
+    {
+        type: 'input',
+        message: 'What movie would you like to search for?',
+        name: 'search_for'
+    }
+]
