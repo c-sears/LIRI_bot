@@ -1,0 +1,39 @@
+{
+  "name": "liri_2.0",
+  "version": "1.1.0",
+  "description": "Command line interface / Chat bot",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config esm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c-sears/LIRI_bot.git"
+  },
+  "keywords": [
+    "LIRI",
+    "chat",
+    "bot",
+    "twitter",
+    "spotify",
+    "OMDB"
+  ],
+  "author": "Caleb Sears",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/c-sears/LIRI_bot/issues"
+  },
+  "homepage": "https://github.com/c-sears/LIRI_bot#readme",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "esm": "^3.0.34",
+    "inquirer": "^5.2.0",
+    "moment": "^2.22.1",
+    "node-spotify-api": "^1.0.7",
+    "npm": "^6.0.1",
+    "request": "^2.86.0",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {}
+}
